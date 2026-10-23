@@ -8,6 +8,12 @@ const pendingAddress = ref(''), selectionSource = ref('')
 let selectionRun = 0
 const presets = computed(() => (props.access.network.value?.tokens || []).filter(token => (token.name + token.symbol + token.address).toLowerCase().includes(search.value.toLowerCase())))
 const isSelecting = tokenAddress => verifying.value && pendingAddress.value === tokenAddress.toLowerCase()
+function onOpenAutoFocus(event) {
+  if (window.matchMedia('(max-width: 767px)').matches) {
+    event.preventDefault()
+    event.target?.focus?.({ preventScroll: true })
+  }
+}
 function resetSelection() {
   selectionRun++; verifying.value = false; pendingAddress.value = ''; selectionSource.value = ''
 }
@@ -29,7 +35,7 @@ async function choose(tokenAddress, source = 'preset') {
 }
 </script>
 <template>
-  <UPopover v-model:open="open" :content="{ align: 'start', collisionPadding: 16 }" :ui="{ content: 'z-50' }">
+  <UPopover v-model:open="open" :content="{ align: 'start', collisionPadding: 16, onOpenAutoFocus }" :ui="{ content: 'z-50' }">
     <UButton color="neutral" variant="outline" trailing-icon="i-pact-caret-down" class="asset-trigger" :loading="verifying">
       <img v-if="modelValue?.icon" :src="modelValue.icon" width="28" height="28" alt=""><SiteIcon v-else name="coins" />
       <span>{{ modelValue?.symbol || '—' }} · {{ t(modelValue?.native ? 'common.native' : 'common.custom') }}</span>
