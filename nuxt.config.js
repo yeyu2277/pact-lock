@@ -28,7 +28,6 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       siteUrl: 'http://localhost:3000',
-      apiBase: 'http://localhost:8000',
       reownProjectId: '',
       networksJson: '',
       defaultChainId: 137,
