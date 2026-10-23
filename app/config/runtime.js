@@ -52,7 +52,7 @@ export function resolvePactConfig(config = {}) {
       rpcUrl: url(value.rpcUrl, field + '.rpcUrl'), explorerUrl: url(value.explorerUrl, field + '.explorerUrl'),
       nativeSymbol: text(value.nativeSymbol, field + '.nativeSymbol'),
       nativeDecimals: integer(value.nativeDecimals, field + '.nativeDecimals', 0, 80),
-      icon: icon(value.icon || (networkIcons[chainId] ? `/icons/networks/${networkIcons[chainId]}.png` : '/favicon.svg'), field + '.icon'),
+      icon: icon(value.icon || (networkIcons[chainId] ? `/icons/networks/${networkIcons[chainId]}.png` : siteDefaults.logo), field + '.icon'),
     }
     if (value.nativeName !== undefined) network.nativeName = text(value.nativeName, field + '.nativeName')
     if (value.pactLock) {

@@ -1,4 +1,5 @@
 import { createAppKit } from '@reown/appkit/vue'
+import { site } from '~/config/site.js'
 import { featuredWalletIds, walletTheme } from '~/config/wallet.js'
 import { WalletEthersAdapter } from '~/utils/wallet/WalletEthersAdapter.js'
 import { protectAppKitBalance } from '~/utils/wallet/protectAppKitBalance.js'
@@ -31,7 +32,7 @@ export default defineNuxtPlugin(() => {
       description: 'Pact Lock',
       // Use the actual origin for local preview and deployed domain verification.
       url: window.location.origin,
-      icons: [new URL('/favicon.svg', window.location.origin).href],
+      icons: [new URL(site.logo, window.location.origin).href],
     },
     themeMode: 'dark',
     themeVariables: walletTheme,

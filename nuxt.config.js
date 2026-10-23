@@ -1,6 +1,7 @@
 import { readdirSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { locales, defaultLocale } from './app/config/locales.js'
+import { site } from './app/config/site.js'
 
 const iconDirectory = fileURLToPath(new URL('./public/icons/phosphor/', import.meta.url))
 const localIcons = readdirSync(iconDirectory).filter(file => file.endsWith('.svg')).map(file => 'pact:' + file.slice(0, -4))
@@ -44,7 +45,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: 'Pact Lock',
-      link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+      link: [{ rel: 'icon', type: 'image/jpeg', href: site.logo }],
       meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1' }],
     },
   },
