@@ -1,0 +1,41 @@
+{
+  "name": "pact-lock-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Pact Lock frontend built with Nuxt and Vue.",
+  "packageManager": "npm@10.9.8",
+  "engines": {
+    "node": "^22.22.3 || ^24.15.0 || >=26.0.0",
+    "npm": ">=10.9.8"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "dev": "nuxt dev --host 0.0.0.0 --dotenv .env.development",
+    "build": "nuxt build --dotenv .env.production",
+    "generate": "nuxt generate --dotenv .env.production",
+    "preview": "nuxt preview --dotenv .env.production",
+    "start": "node --env-file=.env.production .output/server/index.mjs",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxt/ui": "4.12.0",
+    "@nuxtjs/i18n": "10.6.0",
+    "@pinia/nuxt": "1.0.3",
+    "@reown/appkit": "1.8.24",
+    "@reown/appkit-adapter-ethers": "1.8.24",
+    "ethers": "6.17.0",
+    "nuxt": "4.6.2",
+    "pinia": "4.1.0",
+    "pinia-plugin-persistedstate": "4.7.1",
+    "tailwindcss": "4.3.3",
+    "vue": "3.5.44",
+    "vue-router": "5.4.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "esbuild@0.25.12": true,
+    "vue-demi@0.14.10": true,
+    "esbuild@0.27.2": true
+  }
+}

@@ -1,0 +1,17 @@
+node_modules/
+.nuxt/
+.output/
+.data/
+dist/
+/design/
+/test/
+/tests/
+/scripts/
+/FRONTEND.md
+/design-qa.md
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+.idea/
