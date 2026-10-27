@@ -6,7 +6,7 @@ const { defaultNetwork: fallbackNetwork } = usePactConfig()
 const { t } = useI18n()
 const route = useRoute()
 const localePath = useLocalePath()
-const access = useDapp()
+const access = useDapp(undefined, { publicRead: true })
 const feedback = useAppFeedback()
 const tx = useTransaction()
 const token = ref(null), balance = ref(null)
@@ -33,13 +33,14 @@ let balanceRequest = 0
 watch([access.ready, access.key, () => token.value?.address], async () => {
   const request = ++balanceRequest
   balance.value = null
-  if (!import.meta.client || !access.ready.value || !token.value) return
+  if (!import.meta.client || !access.writeReady.value || !token.value) return
   try {
     const value = await access.client().getBalance(token.value.address, access.wallet.address.value)
     if (request === balanceRequest) balance.value = value
   } catch {}
 }, { immediate: true })
 async function submit() {
+  if (!access.writeReady.value || tx.busy.value) return
   submitted.value = true; localError.value = ''
   if (!values.value || !form.agreed) { localError.value = t('create.required'); return }
   let designated = ZeroAddress
@@ -62,7 +63,7 @@ usePactSeo('create')
 </script>
 <template>
   <div class="page-shell create-page">
-    <WalletGate>
+    <div>
       <div class="create-layout">
         <div class="create-main">
           <div class="page-heading"><h1>{{ t('create.title') }}</h1><p>{{ t('create.description') }}</p></div>
@@ -87,8 +88,8 @@ usePactSeo('create')
             <p v-if="localError" class="form-error" role="alert">{{ localError }}</p>
           </form>
         </div>
-        <FundingPreview :values="values" :token="token" :role="form.role" :loading="tx.busy.value" @submit="submit" />
+        <FundingPreview :values="values" :token="token" :role="form.role" :loading="tx.busy.value" :disabled="!access.writeReady.value" @submit="submit" />
       </div>
-    </WalletGate>
+    </div>
   </div>
 </template>

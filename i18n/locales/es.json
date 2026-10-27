@@ -77,7 +77,7 @@
   },
   "gate": {
     "connectTitle": "Conecta para continuar",
-    "connectDescription": "Conecta tu cartera para consultar pedidos, crear compromisos y sincronizar tu historial.",
+    "connectDescription": "Conecta tu cartera para sincronizar y gestionar tu historial de pedidos.",
     "networkTitle": "Cambia a una red compatible",
     "networkDescription": "Pact Lock no está desplegado en la red de tu cartera. Cambia de red para continuar.",
     "mismatch": "Este pedido está en {network}. Cambia tu cartera a esa red.",
@@ -201,7 +201,6 @@
     "noPresets": "Aún no hay tokens ERC20 predefinidos en esta red",
     "tokenAddress": "Dirección del contrato del token",
     "verify": "Verificar",
-    "verifyingToken": "Verificando token, espera…",
     "verifyHint": "Comprueba dirección, nombre y decimales antes de usar este token.",
     "verified": "Token verificado",
     "untrusted": "Verifica su autenticidad por tu cuenta. Solo se admiten ERC20 estándar con transferencias de importe fijo.",

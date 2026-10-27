@@ -9,7 +9,7 @@ import { erc20Abi } from './erc20.js'
 
 export { erc20Abi } from './erc20.js'
 export const pactInterface = new Interface(abi)
-// The homepage counter is the only application read using the configured HTTP RPC.
+// The homepage counter always reads through the configured HTTP RPC.
 export function readCreatedOrderCount(network, { guard = () => {}, ...options } = {}) {
   guard()
   if (!network?.pactLock?.enabled || !isAddress(network.pactLock.address)) throw appError('UNSUPPORTED_NETWORK')

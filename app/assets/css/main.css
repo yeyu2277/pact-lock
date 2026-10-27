@@ -230,7 +230,6 @@ h3 { font-size: 18px; font-weight: 600; }
 .asset-popover::-webkit-scrollbar-thumb { background: #617469; border-radius: 3px; }
 .asset-popover h3 { margin-bottom: 18px; }
 .asset-popover input { min-height: 44px; }
-.asset-verification-status { position: sticky; top: -22px; z-index: 1; display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding: 12px; border: 1px solid #39765a; border-radius: 8px; background: #183527; color: #8aebbf; font-size: 13px; line-height: 1.5; }
 .token-option { display: flex; gap: 12px; align-items: center; padding: 13px 10px; border-radius: 7px; width: 100%; text-align: left; margin-top: 12px; color: #eef4ef; }
 .token-option:not(:disabled):hover { background: #223528; }
 .token-option:disabled { cursor: wait; }
@@ -326,6 +325,8 @@ h3 { font-size: 18px; font-weight: 600; }
 .designated-note { font-size: 12px; color: #b2bfb5; display: flex; align-items: center; margin-top: 16px; }
 .order-action-panel { padding: 27px; background: #13221a; border: 1px solid #2f593e; border-radius: 12px; }
 .order-action-panel h2 { font-size: 28px; }
+.order-action-title { display: flex; align-items: center; gap: 12px; }
+.order-action-title > .site-icon { width: 1em; height: 1em; flex-shrink: 0; color: #37cd9d; }
 .order-action-panel > p { font-size: 15px; color: #b2c6b9; line-height: 1.8; margin-top: 18px; }
 .order-payout { margin-top: 30px; padding: 19px 16px; border: 1px solid #315f42; border-radius: 10px; position: relative; min-height: 110px; }
 .order-payout > span { color: #a7c3af; font-size: 14px; display: block; padding-right: 75px; }
@@ -610,7 +611,6 @@ h3 { font-size: 18px; font-weight: 600; }
   .asset-trigger { min-height: 42px; font-size: 14px; }
   .asset-popover { padding: 18px; }
   .asset-popover input { font-size: 16px; }
-  .asset-verification-status { top: -18px; }
   .amount-fields { grid-template-columns: 1fr; gap: 9px; }
   .amount-fields > [data-slot="root"] { width: 100%; display: grid; grid-template-columns: 86px minmax(0, 1fr); gap: 8px; align-items: center; }
   .amount-fields > [data-slot="root"] > :last-child { margin-top: 0; }

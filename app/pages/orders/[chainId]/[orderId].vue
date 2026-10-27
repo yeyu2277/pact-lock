@@ -9,14 +9,14 @@ const route = useRoute()
 const localePath = useLocalePath()
 const chainId = computed(() => Number(route.params.chainId) || -1)
 const orderId = computed(() => String(route.params.orderId || ''))
-const access = useDapp(chainId)
+const access = useDapp(chainId, { publicRead: true })
 const recent = useRecentOrders(access)
 const feedback = useAppFeedback()
 const tx = useTransaction()
 const order = ref(null), loading = ref(false), error = ref(''), agreed = ref(false), recipient = ref('')
 const cancelOpen = ref(false)
 let generation = 0
-const actions = computed(() => order.value ? orderActions(order.value, access.wallet.address.value) : [])
+const actions = computed(() => order.value && access.writeReady.value ? orderActions(order.value, access.wallet.address.value) : [])
 const primaryAction = computed(() => actions.value.find(action => action !== 'cancelOrder'))
 const role = computed(() => order.value ? roleOf(order.value, access.wallet.address.value) : null)
 const terminal = computed(() => [4, 5].includes(Number(order.value?.state)))
@@ -39,7 +39,7 @@ const actionAgreement = computed(() => t({ acceptOrder: 'order.acceptAgreement',
 async function load(force = false) {
   const request = ++generation
   error.value = ''
-  if (!access.ready.value || !import.meta.client) { order.value = null; return }
+  if (!access.ready.value || !import.meta.client) { order.value = null; loading.value = false; return }
   if (!isOrderId(orderId.value)) { error.value = t('errors.INVALID_ORDER_ID'); return }
   loading.value = true
   try {
@@ -55,7 +55,7 @@ watch([access.ready, access.key, orderId], () => {
   load()
 }, { immediate: true })
 async function perform(method) {
-  if (!method) return
+  if (!method || !access.writeReady.value) return
   if (method !== 'cancelOrder' && !agreed.value) { feedback.notify({ code: 'AGREEMENT_REQUIRED' }); return }
   let address = recipient.value.trim()
   if (method === 'claim') {
@@ -76,14 +76,14 @@ onScopeDispose(() => { generation++ })
 <template>
   <div class="page-shell order-page">
     <div class="breadcrumb"><NuxtLink :to="localePath('/orders')">{{ t('nav.orders') }}</NuxtLink><span>/</span>{{ t('order.title') }}</div>
-    <WalletGate :chain-id="chainId">
+    <div>
       <div class="order-heading">
         <div><div class="order-title-row"><h1>{{ t('order.title') }}</h1><OrderStatus v-if="order" :state="order.state" /></div>
           <div class="order-identity"><span>{{ t('common.id') }} {{ shortenOrderId(orderId) }}</span><CopyButton :value="orderId" /><span v-if="access.network.value" class="order-chain"><img :src="access.network.value.icon" width="22" height="22" alt="">{{ access.network.value.name }}</span></div>
         </div><div class="order-heading-actions"><UButton color="neutral" variant="outline" icon="i-pact-link" @click="share">{{ t('common.share') }}</UButton><UButton color="neutral" variant="outline" icon="i-pact-arrows-clockwise" :loading="loading" @click="load(true)">{{ t('common.refresh') }}</UButton></div>
       </div>
       <div v-if="error" class="order-read-error"><EmptyState :title="error" :description="t('order.notFound')" /><UButton @click="load(true)">{{ t('common.retry') }}</UButton></div>
-      <template v-else>
+      <template v-else-if="access.ready.value">
         <OrderLifecycle :order="order" />
         <div class="order-detail-layout">
           <div class="order-information">
@@ -107,11 +107,11 @@ onScopeDispose(() => { generation++ })
               <p v-if="order && !sameAddress(order.designatedCounterparty, ZeroAddress)" class="designated-note">{{ t('order.counterparty') }}: {{ shortenAddress(order.designatedCounterparty) }}<CopyButton :value="order.designatedCounterparty" /></p>
             </section>
           </div>
-          <aside class="order-action-panel">
-            <h2>{{ t(guidance.title) }}</h2>
+          <aside class="order-action-panel" :aria-busy="loading">
+            <h2 class="order-action-title" aria-live="polite"><SiteIcon v-if="!order" name="spinner-gap" class="animate-spin" />{{ t(guidance.title) }}</h2>
             <p v-if="guidance.hint">{{ t(guidance.hint) }}</p>
             <div v-if="payout !== null" class="order-payout"><span>{{ t(terminal ? 'order.claimable' : 'order.expected') }}</span><strong>{{ formatAmount(payout, order?.token?.decimals) }} {{ order?.token?.symbol }}</strong><img src="/images/pact/confirmation-helper.png" alt="" width="130" height="130" loading="lazy"></div>
-            <p v-if="order && !role && primaryAction !== 'acceptOrder'" class="muted">{{ t('order.outsider') }}</p>
+            <p v-if="order && access.wallet.connected.value && !role && primaryAction !== 'acceptOrder'" class="muted">{{ t('order.outsider') }}</p>
             <UFormField v-if="primaryAction === 'claim'" :label="t('order.recipient')" class="recipient-field"><UInput v-model="recipient" class="w-full" spellcheck="false" autocomplete="off" :placeholder="t('common.address')" /><p class="field-hint">{{ t('order.recipientHint') }}</p></UFormField>
             <template v-if="primaryAction"><UCheckbox v-model="agreed" :label="actionAgreement" class="action-agreement" /><UButton size="xl" class="order-primary" :loading="tx.busy.value" @click="perform(primaryAction)">{{ t(actionLabels[primaryAction]) }}</UButton><p class="preflight-caption">{{ t('create.preflight') }}</p></template>
             <p v-else-if="terminal && role" class="notice">{{ t(order?.[role + 'Claimed'] ? 'order.alreadyClaimed' : 'order.noClaim') }}</p>
@@ -121,7 +121,7 @@ onScopeDispose(() => { generation++ })
           </aside>
         </div>
       </template>
-    </WalletGate>
+    </div>
     <UModal v-model:open="cancelOpen" :title="t('order.cancelTitle')" :description="t('order.cancelAgreement')"><template #footer><UButton color="neutral" variant="outline" @click="cancelOpen = false">{{ t('common.back') }}</UButton><UButton color="error" @click="perform('cancelOrder')">{{ t('order.cancel') }}</UButton></template></UModal>
   </div>
 </template>

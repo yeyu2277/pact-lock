@@ -77,7 +77,7 @@
   },
   "gate": {
     "connectTitle": "Connect to continue your promise",
-    "connectDescription": "Connect your wallet to read on-chain orders, create a promise and sync your order history.",
+    "connectDescription": "Connect your wallet to sync and manage your order history.",
     "networkTitle": "Switch to a supported network",
     "networkDescription": "Pact Lock is not deployed on your wallet's current network. Switch networks to continue.",
     "mismatch": "This order is on {network}. Switch your wallet to the same network.",
@@ -201,7 +201,6 @@
     "noPresets": "No preset ERC20 tokens on this network yet",
     "tokenAddress": "Token contract address",
     "verify": "Verify",
-    "verifyingToken": "Verifying token, please wait…",
     "verifyHint": "Read the address, name and decimals before using this token.",
     "verified": "Token verified",
     "untrusted": "Verify token authenticity independently. Only standard fixed-transfer ERC20 assets are supported.",

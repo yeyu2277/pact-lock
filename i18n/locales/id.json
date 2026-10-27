@@ -77,7 +77,7 @@
   },
   "gate": {
     "connectTitle": "Hubungkan untuk melanjutkan janji",
-    "connectDescription": "Hubungkan dompet untuk membaca pesanan on-chain, membuat janji, dan menyinkronkan riwayat.",
+    "connectDescription": "Hubungkan dompet untuk menyinkronkan dan mengelola riwayat pesanan Anda.",
     "networkTitle": "Beralih ke jaringan yang didukung",
     "networkDescription": "Pact Lock belum diterapkan di jaringan dompet Anda. Ganti jaringan untuk melanjutkan.",
     "mismatch": "Pesanan ini berada di {network}. Ganti dompet ke jaringan yang sama.",
@@ -201,7 +201,6 @@
     "noPresets": "Belum ada ERC20 bawaan di jaringan ini",
     "tokenAddress": "Alamat kontrak token",
     "verify": "Verifikasi",
-    "verifyingToken": "Memverifikasi token, harap tunggu…",
     "verifyHint": "Periksa alamat, nama, dan desimal sebelum menggunakan token.",
     "verified": "Token terverifikasi",
     "untrusted": "Periksa keasliannya sendiri. Hanya ERC20 standar dengan transfer jumlah tetap yang didukung.",

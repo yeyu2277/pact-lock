@@ -77,7 +77,7 @@
   },
   "gate": {
     "connectTitle": "接続して約束を進めましょう",
-    "connectDescription": "ウォレットを接続すると、注文の閲覧・作成と履歴の同期ができます。",
+    "connectDescription": "ウォレットを接続して、自分の注文履歴を同期・管理します。",
     "networkTitle": "対応ネットワークに切り替えてください",
     "networkDescription": "現在のウォレットのネットワークにはPact Lockがありません。切り替えて続行してください。",
     "mismatch": "この注文は{network}上にあります。ウォレットも同じネットワークに切り替えてください。",
@@ -201,7 +201,6 @@
     "noPresets": "このネットワークには登録済みERC20がありません",
     "tokenAddress": "トークンのコントラクトアドレス",
     "verify": "検証",
-    "verifyingToken": "トークンを検証中です…",
     "verifyHint": "使用前にアドレス、名前、桁数を確認してください。",
     "verified": "トークン検証済み",
     "untrusted": "真正性はご自身で確認してください。標準の固定額送金に対応したERC20のみ利用可能です。",

@@ -77,7 +77,7 @@
   },
   "gate": {
     "connectTitle": "连接钱包，继续你的承诺",
-    "connectDescription": "连接钱包后，即可查询链上订单、发布承诺并同步你的订单记录。",
+    "connectDescription": "连接钱包后，同步和管理与你相关的订单记录。",
     "networkTitle": "请切换到支持的网络",
     "networkDescription": "当前钱包网络尚未部署本网站的合约。切换网络后继续操作。",
     "mismatch": "此订单位于 {network}，请将钱包切换到对应网络。",
@@ -201,7 +201,6 @@
     "noPresets": "当前网络暂无预置 ERC20",
     "tokenAddress": "代币合约地址",
     "verify": "验证",
-    "verifyingToken": "正在验证代币，请稍候…",
     "verifyHint": "验证地址、名称和小数位后再使用。",
     "verified": "代币已验证",
     "untrusted": "请独立确认代币真实性，仅支持标准定额转账 ERC20。",

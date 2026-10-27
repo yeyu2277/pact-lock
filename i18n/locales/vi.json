@@ -77,7 +77,7 @@
   },
   "gate": {
     "connectTitle": "Kết nối để tiếp tục cam kết",
-    "connectDescription": "Kết nối ví để đọc đơn trên chuỗi, tạo cam kết và đồng bộ lịch sử.",
+    "connectDescription": "Kết nối ví để đồng bộ và quản lý lịch sử đơn của bạn.",
     "networkTitle": "Chuyển sang mạng được hỗ trợ",
     "networkDescription": "Pact Lock chưa được triển khai trên mạng hiện tại của ví. Hãy đổi mạng để tiếp tục.",
     "mismatch": "Đơn này ở trên {network}. Hãy chuyển ví sang cùng mạng.",
@@ -201,7 +201,6 @@
     "noPresets": "Chưa có ERC20 cài sẵn trên mạng này",
     "tokenAddress": "Địa chỉ hợp đồng token",
     "verify": "Xác minh",
-    "verifyingToken": "Đang xác minh token, vui lòng chờ…",
     "verifyHint": "Kiểm tra địa chỉ, tên và số chữ số thập phân trước khi dùng.",
     "verified": "Token đã xác minh",
     "untrusted": "Tự kiểm tra tính xác thực. Chỉ hỗ trợ ERC20 tiêu chuẩn chuyển đúng số tiền cố định.",

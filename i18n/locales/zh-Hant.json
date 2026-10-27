@@ -77,7 +77,7 @@
   },
   "gate": {
     "connectTitle": "連接錢包，繼續你的承諾",
-    "connectDescription": "連接錢包後，即可查詢鏈上訂單、發布承諾並同步你的訂單記錄。",
+    "connectDescription": "連接錢包後，同步和管理與你相關的訂單記錄。",
     "networkTitle": "請切換到支援的網路",
     "networkDescription": "目前錢包網路尚未部署本網站的合約。切換網路後繼續操作。",
     "mismatch": "此訂單位於 {network}，請將錢包切換到對應網路。",
@@ -201,7 +201,6 @@
     "noPresets": "目前網路暫無預置 ERC20",
     "tokenAddress": "代幣合約地址",
     "verify": "驗證",
-    "verifyingToken": "正在驗證代幣，請稍候…",
     "verifyHint": "驗證地址、名稱和小數位數後再使用。",
     "verified": "代幣已驗證",
     "untrusted": "請獨立確認代幣真實性，僅支援標準定額轉帳 ERC20。",

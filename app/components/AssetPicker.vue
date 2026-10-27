@@ -5,9 +5,23 @@ const { t } = useI18n()
 const feedback = useAppFeedback()
 const open = ref(false), search = ref(''), address = ref(''), verifying = ref(false)
 const pendingAddress = ref(''), selectionSource = ref('')
+const trigger = ref(null), popoverMaxHeight = ref(null)
 let selectionRun = 0
 const presets = computed(() => (props.access.network.value?.tokens || []).filter(token => (token.name + token.symbol + token.address).toLowerCase().includes(search.value.toLowerCase())))
 const isSelecting = tokenAddress => verifying.value && pendingAddress.value === tokenAddress.toLowerCase()
+watch(open, value => {
+  popoverMaxHeight.value = null
+  if (!value || typeof window === 'undefined' || !window.matchMedia('(max-width: 767px)').matches) return
+  const element = trigger.value?.$el
+  if (!element) return
+  const rect = element.getBoundingClientRect()
+  const viewport = window.visualViewport
+  const top = viewport?.offsetTop || 0
+  const height = viewport?.height || window.innerHeight
+  // Capture available space once; keep the original anchor positioning while scrolling.
+  const available = Math.max(rect.top - top - 24, top + height - rect.bottom - 24)
+  popoverMaxHeight.value = Math.max(0, Math.floor(Math.min(600, height - 32, available))) + 'px'
+}, { flush: 'sync' })
 function onOpenAutoFocus(event) {
   if (window.matchMedia('(max-width: 767px)').matches) {
     event.preventDefault()
@@ -36,13 +50,12 @@ async function choose(tokenAddress, source = 'preset') {
 </script>
 <template>
   <UPopover v-model:open="open" :content="{ align: 'start', collisionPadding: 16, onOpenAutoFocus }" :ui="{ content: 'z-50' }">
-    <UButton color="neutral" variant="outline" trailing-icon="i-pact-caret-down" class="asset-trigger" :loading="verifying">
+    <UButton ref="trigger" color="neutral" variant="outline" trailing-icon="i-pact-caret-down" class="asset-trigger">
       <img v-if="modelValue?.icon" :src="modelValue.icon" width="28" height="28" alt=""><SiteIcon v-else name="coins" />
       <span>{{ modelValue?.symbol || '—' }} · {{ t(modelValue?.native ? 'common.native' : 'common.custom') }}</span>
     </UButton>
     <template #content>
-      <div class="asset-popover">
-        <div v-if="verifying" class="asset-verification-status" role="status" aria-live="polite"><SiteIcon name="spinner-gap" class="animate-spin" /><span>{{ t('create.verifyingToken') }}</span></div>
+      <div class="asset-popover" :style="popoverMaxHeight ? { maxHeight: popoverMaxHeight } : undefined">
         <h3>{{ t('create.selectAsset') }}</h3>
         <UInput v-model="search" icon="i-pact-magnifying-glass" :placeholder="t('create.assetSearch')" :aria-label="t('create.assetSearch')" :disabled="verifying" class="w-full" />
         <button class="token-option" :class="{ 'is-verifying': isSelecting('0x0000000000000000000000000000000000000000') }" :disabled="verifying" :aria-busy="isSelecting('0x0000000000000000000000000000000000000000')" @click="choose('0x0000000000000000000000000000000000000000')">

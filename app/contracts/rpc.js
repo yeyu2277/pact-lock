@@ -54,6 +54,7 @@ class ThrottledProvider extends JsonRpcProvider {
     this.queue = new RpcQueue(network.rpcPolicy)
     this.chainId = network.chainId
     this.endpoint = network.rpcUrl
+    this.rpcScope = 'public:' + network.rpcUrl
   }
   async _send(payload) {
     return this.queue.run(async () => {
